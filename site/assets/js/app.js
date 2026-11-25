@@ -2,6 +2,11 @@ import './theme.js';
 import * as tok from './token.js';
 import { api, enc, encPath, b64ToText, textToB64 } from './github.js';
 
+// Do not run inside another page: a framing site could overlay this one to trick a paste or a click.
+if (window.top !== window.self) {
+  document.body.replaceChildren(document.createTextNode('This tool does not run inside another page. Open https://github.tool.sovereignweb.site/ directly.'));
+  throw new Error('framed');
+}
 const $ = (id) => document.getElementById(id);
 // Build DOM nodes from text only. Nothing from GitHub is ever put in as HTML.
 function h(tag, attrs, ...kids) {
