@@ -32,6 +32,7 @@ const X = '<img src=x onerror="window.__pwned=1">';
   await p.fill('#token', TOKEN); await p.check('#keep'); await p.click('button[type=submit]');
   await p.waitForSelector('text=o/r'); await p.click('text=o/r'); await p.waitForTimeout(300);
   await p.click('button.link:has-text("onerror")'); await p.waitForTimeout(300);
+  await p.click('text=Edit this file'); await p.waitForTimeout(200);
   await p.click('text=Commit this change'); await p.waitForTimeout(300);
   await p.click('button[data-t=issues]'); await p.waitForTimeout(300); await p.click('button.link:has-text("#1")'); await p.waitForTimeout(300);
   await p.fill('#cmt', 'hi'); await p.click('text=Post comment'); await p.waitForTimeout(300);

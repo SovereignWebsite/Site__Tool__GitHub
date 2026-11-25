@@ -26,7 +26,7 @@ async function guard(fn) { try { say('Working...'); await fn(); if (status.textC
 // the Two-pane design shows both.
 const twopane = () => document.documentElement.dataset.design === 'twopane';
 function closeDetail(s) {
-  if (twopane()) { s.detail.replaceChildren(h('p', { class: 'meta' }, 'Choose a file, issue or pull request on the left.')); s.detail.hidden = false; } else s.detail.hidden = true;
+  if (twopane()) { s.detail.replaceChildren(h('p', { class: 'meta placeholder' }, 'Choose a file, issue or pull request on the left.')); s.detail.hidden = false; } else s.detail.hidden = true;
   s.split.classList.remove('open');
 }
 function paint(s, which, ...nodes) {
@@ -119,7 +119,7 @@ async function openRepo(full, branch) {
   const head = h('div', { class: 'repobar' }, link('All repositories', () => guard(showRepos)), h('strong', {}, full), h('span', { class: 'tag ' + (p.push ? 'ok' : '') }, p.push ? 'can write' : 'read only'), tabs);
   view.replaceChildren(head, body);
   const go = (t) => { state.tab = t; closeDetail(state); [...tabs.children].forEach((b) => b.setAttribute('aria-current', String(b.dataset.t === t))); guard(() => ({ files: () => showDir(state, body, ''), branches: () => showBranches(state, body), issues: () => showIssues(state, body), pulls: () => showPulls(state, body) })[t]()); };
-  for (const [t, label] of [['files', 'Files'], ['branches', 'Branches'], ['issues', 'Issues'], ['pulls', 'Pull requests']]) { const b = btn(label, () => go(t), true); b.dataset.t = t; tabs.append(b); }
+  for (const [t, label] of [['files', 'Files'], ['branches', 'Branches'], ['issues', 'Issues'], ['pulls', 'PRs']]) { const b = btn(label, () => go(t), true); b.dataset.t = t; if (t === 'pulls') b.setAttribute('aria-label', 'Pull requests'); tabs.append(b); }
   go('files');
 }
 async function showBranches(s, body) {
@@ -144,13 +144,17 @@ async function showFile(s, body, path) {
   let text = null;
   if (f.encoding === 'base64') { try { text = b64ToText(f.content); } catch (e) { text = null; } }
   if (text == null) { out.push(h('p', {}, 'This file is binary or too large to show here (' + f.size + ' bytes). Editing is switched off for it.')); paint(s, 'detail', ...out); return; }
-  out.push(h('pre', { class: 'body code', tabindex: '0', 'aria-label': 'File contents' }, text));
+  const shown = h('pre', { class: 'body code', tabindex: '0', 'aria-label': 'File contents' }, text);
+  out.push(shown);
   const p = perms.get(s.full) || {};
-  if (p.push) out.push(editor(s, body, path, f.sha, text));
-  else out.push(h('p', {}, 'Editing needs a token with write access to this repository. This one is read only.'));
+  if (p.push) {
+    const slot = h('div'); out.push(slot);
+    const edit = btn('Edit this file', () => { shown.hidden = true; slot.replaceChildren(editor(s, body, path, f.sha, text, () => { shown.hidden = false; slot.replaceChildren(edit); })); slot.querySelector('textarea').focus(); });
+    slot.append(edit);
+  } else out.push(h('p', {}, 'Editing needs a token with write access to this repository. This one is read only.'));
   paint(s, 'detail', ...out);
 }
-function editor(s, body, path, sha, text) {
+function editor(s, body, path, sha, text, cancel) {
   const ta = h('textarea', { id: 'edit', 'aria-label': 'New file contents' }); ta.value = text;
   const msg = h('input', { type: 'text', id: 'msg', 'aria-label': 'Commit message' }); msg.value = 'Edit ' + path.split('/').pop();
   const save = btn('Commit this change to ' + s.branch, () => guard(async () => {
@@ -159,7 +163,7 @@ function editor(s, body, path, sha, text) {
     const r = await api('/repos/' + s.full + '/contents/' + encPath(path), { method: 'PUT', body: { message: msg.value, content: textToB64(ta.value), sha, branch: s.branch } });
     await showFile(s, body, path); say(isDemo() ? 'Demo only: nothing was sent to GitHub.' : 'Committed ' + r.body.commit.sha.slice(0, 7) + '.');
   }));
-  return h('div', { class: 'panel' }, h('h2', {}, 'Edit this file'), h('p', {}, 'This makes a real commit on branch ' + s.branch + ' in your name. Pick a branch that is not protected unless you mean it.'), ta, h('label', { for: 'msg' }, 'Commit message'), msg, h('p', {}), save);
+  return h('div', { class: 'panel' }, h('h2', {}, 'Edit this file'), h('p', {}, 'This makes a real commit on branch ' + s.branch + ' in your name. Pick a branch that is not protected unless you mean it.'), ta, h('label', { for: 'msg' }, 'Commit message'), msg, h('div', { class: 'row' }, save, btn('Cancel', cancel, true)));
 }
 
 // ---- issues and pull requests ----

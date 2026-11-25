@@ -113,3 +113,5 @@ footer,footer a{overflow-wrap:anywhere}
 body.live #hero .line{display:none}
 body.live #hero h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0}
 .listpane h2,.detailpane h2,.panel h2{font-size:1.05rem;margin:.8rem 0 .4rem}
+.repobar .tabs{flex-wrap:nowrap;overflow-x:auto;max-width:100%}.tabs button{white-space:nowrap}
+@media (max-width:49.99rem){.placeholder{display:none}}
