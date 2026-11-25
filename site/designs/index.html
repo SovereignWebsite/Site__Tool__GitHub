@@ -51,15 +51,13 @@
     <a href="/">The tool</a>
     <a href="/security/">Token safety</a>
     <a href="/designs/">Choose a design</a>
-    <a href="/start/">Start here</a>
-    <a href="/agents/">Use with your AI</a>
   </nav>
 </header>
 <main id="main">
 <div class="mark">Choose a design</div>
 <h1>Five directions for this tool</h1>
 <p>Each has a light and a dark version that follows your device. The demo link opens the real tool on invented data, so you can judge each one working. High contrast is not a direction: it is a button in the header that works on top of any of them.</p>
-<div class="line"><strong>Recommendation, round 2:</strong> Ledger, because a repository tool is mostly lists. Two-pane is the structural alternative if wide screens matter most. Both stay open until the reviewer has seen round 2.</div>
+<div class="line"><strong>Recommendation, round 3:</strong> Two-pane, using Ledger's tables in its left pane. It is the only direction that changes the layout of working in a repository; the reviewer prefers it to Ledger. Ledger stays as the single-column choice.</div>
 <div class="cols">
 <article class="sample" data-design="paper">
 <h2>Paper</h2>
@@ -70,28 +68,28 @@
 </article>
 <article class="sample" data-design="terminal">
 <h2>Terminal</h2>
-<p>Monospace throughout, square corners, green on near black in dark mode.</p>
-<p>Suits people who live in a shell. Monospace body text tires some readers.</p>
+<p>Monospace and square, driven from the keyboard: / filters the list, j and k move, Enter opens.</p>
+<p>Fast for people who live in a shell. Monospace body text tires some readers.</p>
 <ul class="list"><li><strong>example-org/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/guide.md <span class="meta">52 bytes</span></li></ul>
 <p class="row"><a class="btn" href="/?design=terminal&amp;demo=1">See Terminal with demo data</a> <a href="/?design=terminal">Use Terminal</a></p>
 </article>
 <article class="sample" data-design="ledger">
 <h2>Ledger</h2>
-<p>Compact, small radius, blue accent, tight rows like a ledger.</p>
-<p>Fits the most repositories and files on screen. Least breathing space.</p>
+<p>Real tables in one wide column: name and size, or number, title, author and date. Compact, blue accent.</p>
+<p>Fits the most rows on screen and is easy to scan. Wide tables need a sideways scroll on a phone.</p>
 <ul class="list"><li><strong>example-org/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/guide.md <span class="meta">52 bytes</span></li></ul>
 <p class="row"><a class="btn" href="/?design=ledger&amp;demo=1">See Ledger with demo data</a> <a href="/?design=ledger">Use Ledger</a></p>
 </article>
 <article class="sample" data-design="cards">
 <h2>Cards</h2>
-<p>Serif text, big rounded panels, amber accent, generous spacing.</p>
-<p>Friendliest to read at length. Takes the most space.</p>
+<p>Repositories, files and issues as a grid of cards. Serif text, amber accent, generous spacing.</p>
+<p>Friendliest to read and browse. Shows the fewest items at once.</p>
 <ul class="list"><li><strong>example-org/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/guide.md <span class="meta">52 bytes</span></li></ul>
 <p class="row"><a class="btn" href="/?design=cards&amp;demo=1">See Cards with demo data</a> <a href="/?design=cards">Use Cards</a></p>
 </article>
 <article class="sample" data-design="twopane">
 <h2>Two-pane</h2>
-<p>A structural change: the list stays on the left and the open file or issue on the right, in teal. One pane at a time on a phone.</p>
+<p>A structural change: a table on the left and the open file or issue on the right, filling the screen height, in teal. One pane at a time on a phone.</p>
 <p>Fastest for moving between items. Needs a wide screen to pay off.</p>
 <div class="minipane" aria-hidden="true"><div>owner/repo<br>docs/<br>README.md</div><div>README.md<br>opens here</div></div>
 <p class="row"><a class="btn" href="/?design=twopane&amp;demo=1">See Two-pane with demo data</a> <a href="/?design=twopane">Use Two-pane</a></p>

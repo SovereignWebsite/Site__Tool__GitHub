@@ -51,13 +51,13 @@
     <a href="/">The tool</a>
     <a href="/security/">Token safety</a>
     <a href="/designs/">Choose a design</a>
-    <a href="/start/">Start here</a>
-    <a href="/agents/">Use with your AI</a>
   </nav>
 </header>
 <main id="main">
+<div id="hero">
 <h1>Read and write GitHub from here</h1>
 <p class="line"><strong>In review:</strong> not yet cleared for real use. <a href="/security/">Use a throwaway read-only token.</a></p>
+</div>
 <form id="connect" class="panel" autocomplete="off">
 <h2>Paste a fine-grained token</h2>
 <p>The token stays in this tab's memory and is sent to api.github.com only. It is never put in a web address, a cookie or local storage, and never logged. <a href="/security/">Read how to make a safe token and what the risks are.</a></p>
@@ -66,9 +66,11 @@
 <label class="check" for="keep"><input id="keep" type="checkbox"> Keep it for this tab only, so reloading does not forget it (stored in sessionStorage; cleared when the tab closes). Leave this unticked on a shared computer.</label>
 <div class="row"><button type="submit">Connect</button><button id="demo" type="button" class="alt">Try the demo, no token</button></div>
 </form>
-<section id="connected" class="panel" hidden>
-<div class="row"><h2>Connected</h2><button id="forget" type="button" class="alt">Forget the token</button></div>
-<div id="identity"></div>
+<section id="connected" class="bar" hidden>
+<strong id="who"></strong>
+<a class="tag" href="/security/">In review</a>
+<details id="details"><summary>Token details</summary><div id="identity"></div></details>
+<button id="forget" type="button" class="alt small">Forget the token</button>
 </section>
 <p id="status" class="status" role="status" aria-live="polite"></p>
 <div id="view"></div>
