@@ -1,5 +1,9 @@
 // The only network code. Every request goes to https://api.github.com and nowhere else.
 import { bearer, has } from './token.js';
+import { demoApi } from './demo.js';
+let demo = false;
+export function setDemo(on) { demo = !!on; }
+export function isDemo() { return demo; }
 const BASE = 'https://api.github.com';
 export class ApiError extends Error { constructor(status, message) { super(message); this.status = status; } }
 function plain(status, body) {
@@ -21,8 +25,9 @@ function safePath(path) {
   return !base.split('/').some((seg) => seg === '.' || seg === '..');
 }
 export async function api(path, opts = {}) {
-  if (!has()) throw new ApiError(0, 'Paste a token first.');
+  if (!demo && !has()) throw new ApiError(0, 'Paste a token first.');
   if (!safePath(path)) throw new ApiError(0, 'Bad request path.');
+  if (demo) return demoApi(path, opts); // synthetic data: no network request is made
   const init = { method: opts.method || 'GET', headers: { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', Authorization: bearer() }, cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' };
   if (opts.body !== undefined) { init.body = JSON.stringify(opts.body); init.headers['Content-Type'] = 'application/json'; }
   let res;

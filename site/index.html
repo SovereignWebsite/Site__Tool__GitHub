@@ -27,7 +27,7 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<aside class="notice" aria-label="Notice">An independent Sovereign Website tool. Not GitHub's site. Status: in review, not yet cleared for real use.</aside>
+<aside class="notice" aria-label="Notice">An independent Sovereign Website tool. Not GitHub's site.</aside>
 <details class="family-credit">
   <summary>Sovereign Website</summary>
   <ul>
@@ -56,16 +56,15 @@
   </nav>
 </header>
 <main id="main">
-<div class="mark">github.tool.sovereignweb.site</div>
-<h1>GitHub in the browser (unofficial)</h1>
-<div class="banner"><strong>In review.</strong> This tool has not yet had its security review of token handling. Use a throwaway, read-only token scoped to one repository until it has.</div>
+<h1>Read and write GitHub from here</h1>
+<p class="line"><strong>In review:</strong> not yet cleared for real use. <a href="/security/">Use a throwaway read-only token.</a></p>
 <form id="connect" class="panel" autocomplete="off">
 <h2>Paste a fine-grained token</h2>
 <p>The token stays in this tab's memory and is sent to api.github.com only. It is never put in a web address, a cookie or local storage, and never logged. <a href="/security/">Read how to make a safe token and what the risks are.</a></p>
 <label for="token">Fine-grained personal access token</label>
 <input id="token" type="password" autocomplete="off" autocapitalize="off" spellcheck="false">
 <label class="check" for="keep"><input id="keep" type="checkbox"> Keep it for this tab only, so reloading does not forget it (stored in sessionStorage; cleared when the tab closes). Leave this unticked on a shared computer.</label>
-<button type="submit">Connect</button>
+<div class="row"><button type="submit">Connect</button><button id="demo" type="button" class="alt">Try the demo, no token</button></div>
 </form>
 <section id="connected" class="panel" hidden>
 <div class="row"><h2>Connected</h2><button id="forget" type="button" class="alt">Forget the token</button></div>

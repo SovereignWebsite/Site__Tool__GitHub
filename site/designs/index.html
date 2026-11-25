@@ -6,13 +6,13 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <title>Choose a design: GitHub in the browser (unofficial)</title>
-<meta name="description" content="Five design directions for the GitHub in the browser tool, in light and dark. Pick one to try.">
+<meta name="description" content="Five design directions for the GitHub in the browser tool, in light and dark, each viewable on demo data.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="GitHub in the browser (unofficial)">
 <meta property="og:locale" content="en_GB">
 <meta property="og:url" content="https://github.tool.sovereignweb.site/designs/">
 <meta property="og:title" content="Choose a design: GitHub in the browser (unofficial)">
-<meta property="og:description" content="Five design directions for the GitHub in the browser tool, in light and dark. Pick one to try.">
+<meta property="og:description" content="Five design directions for the GitHub in the browser tool, in light and dark, each viewable on demo data.">
 <meta property="og:image" content="https://github.tool.sovereignweb.site/assets/share/card-1200x630.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
@@ -20,14 +20,14 @@
 <meta property="og:image:alt" content="GitHub in the browser (unofficial)">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Choose a design: GitHub in the browser (unofficial)">
-<meta name="twitter:description" content="Five design directions for the GitHub in the browser tool, in light and dark. Pick one to try.">
+<meta name="twitter:description" content="Five design directions for the GitHub in the browser tool, in light and dark, each viewable on demo data.">
 <meta name="twitter:image" content="https://github.tool.sovereignweb.site/assets/share/card-1200x630.jpg">
 <link rel="canonical" href="https://github.tool.sovereignweb.site/designs/">
 <link rel="stylesheet" href="/assets/app.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<aside class="notice" aria-label="Notice">An independent Sovereign Website tool. Not GitHub's site. Status: in review, not yet cleared for real use.</aside>
+<aside class="notice" aria-label="Notice">An independent Sovereign Website tool. Not GitHub's site.</aside>
 <details class="family-credit">
   <summary>Sovereign Website</summary>
   <ul>
@@ -58,46 +58,45 @@
 <main id="main">
 <div class="mark">Choose a design</div>
 <h1>Five directions for this tool</h1>
-<p>Each one has a light and a dark version that follows your device. Pick one to try it: it applies to the tool pages for this tab. Round 1 of design review, awaiting the reviewer's notes.</p>
-<div class="banner"><strong>Recommendation, round 1:</strong> Ledger. A repository tool is mostly lists, and Ledger shows the most at once while keeping contrast and focus rings. High contrast is the fallback for anyone who needs it. This will change after review.</div>
+<p>Each has a light and a dark version that follows your device. The demo link opens the real tool on invented data, so you can judge each one working. High contrast is not a direction: it is a button in the header that works on top of any of them.</p>
+<div class="line"><strong>Recommendation, round 2:</strong> Ledger, because a repository tool is mostly lists. Two-pane is the structural alternative if wide screens matter most. Both stay open until the reviewer has seen round 2.</div>
 <div class="cols">
 <article class="sample" data-design="paper">
 <h2>Paper</h2>
 <p>Calm and warm, close to the other Sovereign Website pages. Roomy, sans-serif, green accent.</p>
-<p>Reads like a document. Less dense, so long repository lists scroll further.</p>
-<ul class="list"><li><strong>owner/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/readme.md <span class="meta">412 bytes</span></li></ul>
-<a class="btn" href="/?design=paper">Use Paper</a>
+<p>Reads like a document. Less dense, so long lists scroll further.</p>
+<ul class="list"><li><strong>example-org/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/guide.md <span class="meta">52 bytes</span></li></ul>
+<p class="row"><a class="btn" href="/?design=paper&amp;demo=1">See Paper with demo data</a> <a href="/?design=paper">Use Paper</a></p>
 </article>
 <article class="sample" data-design="terminal">
 <h2>Terminal</h2>
 <p>Monospace throughout, square corners, green on near black in dark mode.</p>
 <p>Suits people who live in a shell. Monospace body text tires some readers.</p>
-<ul class="list"><li><strong>owner/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/readme.md <span class="meta">412 bytes</span></li></ul>
-<a class="btn" href="/?design=terminal">Use Terminal</a>
+<ul class="list"><li><strong>example-org/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/guide.md <span class="meta">52 bytes</span></li></ul>
+<p class="row"><a class="btn" href="/?design=terminal&amp;demo=1">See Terminal with demo data</a> <a href="/?design=terminal">Use Terminal</a></p>
 </article>
 <article class="sample" data-design="ledger">
 <h2>Ledger</h2>
 <p>Compact, small radius, blue accent, tight rows like a ledger.</p>
 <p>Fits the most repositories and files on screen. Least breathing space.</p>
-<ul class="list"><li><strong>owner/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/readme.md <span class="meta">412 bytes</span></li></ul>
-<a class="btn" href="/?design=ledger">Use Ledger</a>
+<ul class="list"><li><strong>example-org/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/guide.md <span class="meta">52 bytes</span></li></ul>
+<p class="row"><a class="btn" href="/?design=ledger&amp;demo=1">See Ledger with demo data</a> <a href="/?design=ledger">Use Ledger</a></p>
 </article>
 <article class="sample" data-design="cards">
 <h2>Cards</h2>
 <p>Serif text, big rounded panels, amber accent, generous spacing.</p>
-<p>Friendliest and most readable at length. Takes the most space.</p>
-<ul class="list"><li><strong>owner/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/readme.md <span class="meta">412 bytes</span></li></ul>
-<a class="btn" href="/?design=cards">Use Cards</a>
+<p>Friendliest to read at length. Takes the most space.</p>
+<ul class="list"><li><strong>example-org/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/guide.md <span class="meta">52 bytes</span></li></ul>
+<p class="row"><a class="btn" href="/?design=cards&amp;demo=1">See Cards with demo data</a> <a href="/?design=cards">Use Cards</a></p>
 </article>
-<article class="sample" data-design="contrast">
-<h2>High contrast</h2>
-<p>Pure black and white, thick borders, largest type, blue links.</p>
-<p>Strongest legibility and focus. Visually heavy.</p>
-<ul class="list"><li><strong>owner/example-repo</strong> <span class="tag ok">can write</span></li><li>docs/readme.md <span class="meta">412 bytes</span></li></ul>
-<a class="btn" href="/?design=contrast">Use High contrast</a>
+<article class="sample" data-design="twopane">
+<h2>Two-pane</h2>
+<p>A structural change: the list stays on the left and the open file or issue on the right, in teal. One pane at a time on a phone.</p>
+<p>Fastest for moving between items. Needs a wide screen to pay off.</p>
+<div class="minipane" aria-hidden="true"><div>owner/repo<br>docs/<br>README.md</div><div>README.md<br>opens here</div></div>
+<p class="row"><a class="btn" href="/?design=twopane&amp;demo=1">See Two-pane with demo data</a> <a href="/?design=twopane">Use Two-pane</a></p>
 </article>
 </div>
-<p><a href="/?design=paper">Back to the tool</a></p>
 <footer>
 <nav class="site-links" aria-label="About this site">
   <a href="/security/">Token safety</a>

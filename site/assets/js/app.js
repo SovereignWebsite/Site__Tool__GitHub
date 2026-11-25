@@ -1,6 +1,6 @@
 import './theme.js';
 import * as tok from './token.js';
-import { api, enc, encPath, b64ToText, textToB64 } from './github.js';
+import { api, enc, encPath, b64ToText, textToB64, setDemo, isDemo } from './github.js';
 
 // Do not run inside another page: a framing site could overlay this one to trick a paste or a click.
 if (window.top !== window.self) {
@@ -20,8 +20,16 @@ function say(msg, err) { status.textContent = msg || ''; status.className = 'sta
 function when(iso) { return iso ? new Date(iso).toLocaleString('en-GB') : ''; }
 function btn(label, fn, alt) { const b = h('button', { type: 'button', class: alt ? 'alt' : '' }, label); b.addEventListener('click', fn); return b; }
 function link(label, fn) { const b = h('button', { type: 'button', class: 'link' }, label); b.addEventListener('click', fn); return b; }
-async function guard(fn) { try { say('Working...'); await fn(); say(''); } catch (e) { say(e.message || 'Something went wrong.', true); } }
+async function guard(fn) { try { say('Working...'); await fn(); if (status.textContent === 'Working...') say(''); } catch (e) { say(e.message || 'Something went wrong.', true); } }
 
+// A repository view has a list pane and a detail pane. Narrow screens and most designs show one at a time;
+// the Two-pane design shows both.
+const twopane = () => document.documentElement.dataset.design === 'twopane';
+function closeDetail(s) { s.detail.hidden = true; s.split.classList.remove('open'); }
+function paint(s, which, ...nodes) {
+  s[which].replaceChildren(...nodes);
+  if (which === 'detail') { s.detail.hidden = false; s.split.classList.add('open'); } else if (!twopane()) closeDetail(s);
+}
 let me = null;
 const perms = new Map(); // "owner/repo" -> permissions object as GitHub reports it
 
@@ -53,7 +61,7 @@ function renderIdentity(u, exp, classic, rate) {
     h('p', {}, 'GitHub does not list a fine-grained token\'s permissions through its API. What it reports is shown per repository below, as your access to that repository through this token. To see the exact permissions, open the token\'s page on GitHub.'));
 }
 function disconnect() {
-  tok.forget(); me = null; perms.clear();
+  tok.forget(); setDemo(false); me = null; perms.clear(); $('forget').textContent = 'Forget the token';
   $('connected').hidden = true; $('connect').hidden = false; view.replaceChildren(); say('Token forgotten.');
 }
 
@@ -77,12 +85,13 @@ async function showRepos() {
 // ---- one repository ----
 async function openRepo(full, branch) {
   const state = { full, branch, tab: 'files' };
-  const head = h('div'), body = h('div');
+  const list = h('div', { class: 'listpane' }), detail = h('div', { class: 'detailpane' }); detail.hidden = true;
+  const body = h('div', { class: 'split' }, list, detail); Object.assign(state, { split: body, list, detail }); const head = h('div');
   view.replaceChildren(h('div', { class: 'crumbs' }, link('All repositories', () => guard(showRepos))), h('h2', {}, full), head, body);
   const p = perms.get(full) || {};
   head.append(h('p', {}, 'Your access through this token: ' + (p.admin ? 'admin, ' : '') + (p.push ? 'write' : 'read only') + '.'));
   const tabs = h('div', { class: 'tabs', role: 'group', 'aria-label': 'Repository sections' });
-  const go = (t) => { state.tab = t; [...tabs.children].forEach((b) => b.setAttribute('aria-current', String(b.dataset.t === t))); guard(() => ({ files: () => showDir(state, body, ''), branches: () => showBranches(state, body), issues: () => showIssues(state, body), pulls: () => showPulls(state, body) })[t]()); };
+  const go = (t) => { state.tab = t; closeDetail(state); [...tabs.children].forEach((b) => b.setAttribute('aria-current', String(b.dataset.t === t))); guard(() => ({ files: () => showDir(state, body, ''), branches: () => showBranches(state, body), issues: () => showIssues(state, body), pulls: () => showPulls(state, body) })[t]()); };
   for (const [t, label] of [['files', 'Files'], ['branches', 'Branches'], ['issues', 'Issues'], ['pulls', 'Pull requests']]) { const b = btn(label, () => go(t), true); b.dataset.t = t; tabs.append(b); }
   head.append(tabs); go('files');
 }
@@ -90,7 +99,7 @@ async function showBranches(s, body) {
   const r = await api('/repos/' + s.full + '/branches?per_page=100');
   const ul = h('ul', { class: 'list' });
   for (const b of r.body) ul.append(h('li', {}, link(b.name, () => { s.branch = b.name; guard(() => showDir(s, body, '')); }), b.protected ? h('span', { class: 'tag' }, 'protected') : null, s.branch === b.name ? h('span', { class: 'tag ok' }, 'selected') : null));
-  body.replaceChildren(h('h3', {}, 'Branches (' + r.body.length + ')'), ul);
+  paint(s, 'list', h('h3', {}, 'Branches (' + r.body.length + ')'), ul);
 }
 async function showDir(s, body, path) {
   const r = await api('/repos/' + s.full + '/contents/' + encPath(path) + '?ref=' + enc(s.branch));
@@ -100,7 +109,7 @@ async function showDir(s, body, path) {
   const ul = h('ul', { class: 'list' });
   r.body.sort((a, b) => (a.type === b.type ? a.name.localeCompare(b.name) : a.type === 'dir' ? -1 : 1));
   for (const f of r.body) ul.append(h('li', {}, link((f.type === 'dir' ? 'Folder: ' : '') + f.name, () => guard(() => (f.type === 'dir' ? showDir(s, body, f.path) : showFile(s, body, f.path)))), f.type === 'file' ? h('span', { class: 'meta' }, f.size + ' bytes') : null));
-  body.replaceChildren(crumbs, ul);
+  paint(s, 'list', crumbs, ul);
 }
 async function showFile(s, body, path) {
   const r = await api('/repos/' + s.full + '/contents/' + encPath(path) + '?ref=' + enc(s.branch));
@@ -109,12 +118,12 @@ async function showFile(s, body, path) {
   const out = [h('div', { class: 'crumbs' }, link('Back to folder', () => guard(() => showDir(s, body, back))), h('strong', {}, path))];
   let text = null;
   if (f.encoding === 'base64') { try { text = b64ToText(f.content); } catch (e) { text = null; } }
-  if (text == null) { out.push(h('p', {}, 'This file is binary or too large to show here (' + f.size + ' bytes). Editing is switched off for it.')); body.replaceChildren(...out); return; }
+  if (text == null) { out.push(h('p', {}, 'This file is binary or too large to show here (' + f.size + ' bytes). Editing is switched off for it.')); paint(s, 'detail', ...out); return; }
   out.push(h('pre', { class: 'body code', tabindex: '0', 'aria-label': 'File contents' }, text));
   const p = perms.get(s.full) || {};
   if (p.push) out.push(editor(s, body, path, f.sha, text));
   else out.push(h('p', {}, 'Editing needs a token with write access to this repository. This one is read only.'));
-  body.replaceChildren(...out);
+  paint(s, 'detail', ...out);
 }
 function editor(s, body, path, sha, text) {
   const ta = h('textarea', { id: 'edit', 'aria-label': 'New file contents' }); ta.value = text;
@@ -123,7 +132,7 @@ function editor(s, body, path, sha, text) {
     if (!msg.value.trim()) throw new Error('Write a commit message first.');
     if (!confirm('Commit this change to ' + s.full + ' on branch ' + s.branch + '?')) return;
     const r = await api('/repos/' + s.full + '/contents/' + encPath(path), { method: 'PUT', body: { message: msg.value, content: textToB64(ta.value), sha, branch: s.branch } });
-    say('Committed ' + r.body.commit.sha.slice(0, 7) + '.'); await showFile(s, body, path); say('Committed.');
+    await showFile(s, body, path); say(isDemo() ? 'Demo only: nothing was sent to GitHub.' : 'Committed ' + r.body.commit.sha.slice(0, 7) + '.');
   }));
   return h('div', { class: 'panel' }, h('h3', {}, 'Edit this file'), h('p', {}, 'This makes a real commit on branch ' + s.branch + ' in your name. Pick a branch that is not protected unless you mean it.'), ta, h('label', { for: 'msg' }, 'Commit message'), msg, h('p', {}), save);
 }
@@ -142,7 +151,7 @@ function listItems(s, body, title, items, canComment) {
   const ul = h('ul', { class: 'list' });
   for (const i of items) ul.append(h('li', {}, link('#' + i.number + ' ' + i.title, () => guard(() => showThread(s, body, i, canComment))), h('span', { class: 'meta' }, (i.user ? i.user.login : '') + ', ' + when(i.updated_at))));
   if (!items.length) ul.append(h('li', {}, 'None open.'));
-  body.replaceChildren(h('h3', {}, title + ' (' + items.length + ')'), ul);
+  paint(s, 'list', h('h3', {}, title + ' (' + items.length + ')'), ul);
 }
 async function showThread(s, body, item, canComment) {
   const c = await api('/repos/' + s.full + '/issues/' + item.number + '/comments?per_page=100');
@@ -155,12 +164,22 @@ async function showThread(s, body, item, canComment) {
       if (!ta.value.trim()) throw new Error('Write a comment first.');
       if (!confirm('Post this comment on #' + item.number + ' in ' + s.full + '?')) return;
       await api('/repos/' + s.full + '/issues/' + item.number + '/comments', { method: 'POST', body: { body: ta.value } });
-      await showThread(s, body, item, canComment);
+      await showThread(s, body, item, canComment); say(isDemo() ? 'Demo only: nothing was sent to GitHub.' : 'Comment posted.');
     }))));
-  body.replaceChildren(...out);
+  paint(s, 'detail', ...out);
 }
 
 // ---- start ----
 $('connect').addEventListener('submit', (e) => { e.preventDefault(); connect(); });
 $('forget').addEventListener('click', disconnect);
+async function startDemo() {
+  setDemo(true); tok.forget();
+  await guard(async () => {
+    me = (await api('/user')).body; renderIdentity(me, null, null, null);
+    $('identity').replaceChildren(h('p', { class: 'banner' }, h('strong', {}, 'Demo. '), 'Synthetic data about an invented organisation. No token is used and nothing is sent to GitHub, even if you press a commit or comment button.'));
+    $('forget').textContent = 'Leave the demo'; $('connected').hidden = false; $('connect').hidden = true; await showRepos();
+  });
+}
+$('demo').addEventListener('click', startDemo);
+try { if (new URLSearchParams(location.search).get('demo') === '1') startDemo(); } catch (e) { /* no demo link */ }
 if (tok.restore()) { $('connect').hidden = true; $('connected').hidden = false; guard(async () => { const [u, rl] = await Promise.all([api('/user'), api('/rate_limit')]); me = u.body; renderIdentity(me, u.headers.get('github-authentication-token-expiration'), u.headers.get('x-oauth-scopes'), rl.body && rl.body.rate); await showRepos(); }).then(() => { if (!me) disconnect(); }); }
