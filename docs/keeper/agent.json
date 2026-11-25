@@ -1,0 +1,20 @@
+{
+  "agent": "github-tool.a@SovereignWebsite.dinis",
+  "state": "handing over",
+  "moving_to": "cl-4.github-tool@SovereignWebsite.dinis (account D)",
+  "reason": "Account A is at 90% of its week (cl-1.maestro, confirmed by sites.a).",
+  "updated": "2026-11-25",
+  "repository": "SovereignWebsite/Site__Tool__GitHub",
+  "branch": "dev",
+  "tool_status": "in review",
+  "waiting_on": [
+    "Dinis: a throwaway read-only fine-grained token and a public test repository, for the real-GitHub run",
+    "Dinis: whether the tool is cleared for real use",
+    "Dinis: the final design pick (recommendation: Two-pane with Ledger's tables)",
+    "Dinis: how to handle the share card (the permission classifier refused the command that makes it)"
+  ],
+  "signing_key": "site/keys/github-tool.a.json (a session key; the new session makes its own)",
+  "vault_and_lane_keys": "none held",
+  "scheduled_wakes": "none",
+  "repositories_pushed_to": ["SovereignWebsite/Site__Tool__GitHub (dev only)"]
+}
