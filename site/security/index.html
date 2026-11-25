@@ -82,6 +82,7 @@
 <li>Sends it to https://api.github.com and nowhere else. The page's security policy blocks every other destination.</li>
 <li>Does not write it to local storage, cookies, web addresses or the console.</li>
 <li>Forgets it when you press Forget the token, or close the tab.</li>
+<li>Opening the demo (a link ending in ?demo=1, or the demo button) forgets any token kept for the tab, so a shared demo link signs you out. The demo uses invented data and sends nothing to GitHub.</li>
 </ul>
 <p>Status: this tool is in review. Its token handling has been asked for a security review and has not passed it yet.</p>
 <footer>
