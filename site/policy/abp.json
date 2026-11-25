@@ -85,5 +85,47 @@
     }
   },
   "changes": "A change to this file or to .github/ takes effect only with the owner's yes (until handover, Dinis's), given in the keeper's own session. The commit that makes it says where that yes was given. A keeper may add rules but not remove the core ones: the site pipeline refuses a policy whose keeper.never or pages.allowed is weaker than the template's.",
-  "enforced_today": "The pipeline enforces the checks above on every push: if one fails, nothing is published. The rules for agents (paths, branches, signing, trailers) are followed by the agents and reviewed in their sessions and in the repository's history; they are not yet checked automatically on this site."
+  "enforced_today": "The pipeline enforces the checks above on every push: if one fails, nothing is published. The rules for agents (paths, branches, signing, trailers) are followed by the agents and reviewed in their sessions and in the repository's history; they are not yet checked automatically on this site.",
+  "tool": {
+    "what": "A static page that reads and writes GitHub from the user's browser with a fine-grained token the user pastes in.",
+    "status": "In review. Its token handling has not yet passed a security review, and the tool is not cleared for real use until it does.",
+    "token": {
+      "kept": "In the memory of the open tab; in sessionStorage only if the user ticks a box",
+      "never": [
+        "localStorage",
+        "cookies",
+        "a web address",
+        "the console or any log",
+        "any host other than api.github.com"
+      ]
+    },
+    "network": {
+      "connect_src": "'self' https://api.github.com",
+      "content_security_policy": "default-src 'self'; connect-src 'self' https://api.github.com",
+      "third_party_scripts": "none",
+      "tracking": "none"
+    },
+    "api_calls": {
+      "read": [
+        "GET /user",
+        "GET /rate_limit",
+        "GET /user/repos",
+        "GET /repos/{owner}/{repo}/branches",
+        "GET /repos/{owner}/{repo}/contents/{path}",
+        "GET /repos/{owner}/{repo}/issues",
+        "GET /repos/{owner}/{repo}/pulls",
+        "GET /repos/{owner}/{repo}/issues/{n}/comments"
+      ],
+      "write_after_user_confirms": [
+        "POST /repos/{owner}/{repo}/issues/{n}/comments",
+        "PUT /repos/{owner}/{repo}/contents/{path}"
+      ]
+    },
+    "not_built": [
+      "Sign in with GitHub (needs a token-exchange server and an OAuth App; the owner's decision)",
+      "a git protocol proxy"
+    ],
+    "notice": "An independent Sovereign Website tool. Not GitHub's site.",
+    "source": "Dinis Cruz's brief to the keeper, 25 November 2026, via sites.a."
+  }
 }

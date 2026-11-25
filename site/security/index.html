@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Token safety: GitHub in the browser (unofficial)</title>
+<meta name="description" content="How to make a safe GitHub token for this tool, and the plain risks of pasting one into any web page.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GitHub in the browser (unofficial)">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://github.tool.sovereignweb.site/security/">
+<meta property="og:title" content="Token safety: GitHub in the browser (unofficial)">
+<meta property="og:description" content="How to make a safe GitHub token for this tool, and the plain risks of pasting one into any web page.">
+<meta property="og:image" content="https://github.tool.sovereignweb.site/assets/share/card-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GitHub in the browser (unofficial)">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Token safety: GitHub in the browser (unofficial)">
+<meta name="twitter:description" content="How to make a safe GitHub token for this tool, and the plain risks of pasting one into any web page.">
+<meta name="twitter:image" content="https://github.tool.sovereignweb.site/assets/share/card-1200x630.jpg">
+<link rel="canonical" href="https://github.tool.sovereignweb.site/security/">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<aside class="notice" aria-label="Notice">An independent Sovereign Website tool. Not GitHub's site. Status: in review, not yet cleared for real use.</aside>
+<details class="family-credit">
+  <summary>Sovereign Website</summary>
+  <ul>
+    <li><a href="/start/">Start here</a></li>
+    <li><a href="/agents/">Use with your AI</a></li>
+    <li class="family-gap"><a href="/admin/">How this site was made</a></li>
+    <li><a href="https://sovereignwebsite.ai/">Sovereign Website</a></li>
+    <li><a href="https://sovereignwebsite.org/">Principles</a></li>
+    <li><a href="https://sovereignwebsite.site/">Hosted</a></li>
+    <li><a href="https://hub.sovereignweb.site/">Hub</a></li>
+    <li><a href="https://agents.sovereignweb.site/">Agents</a></li>
+    <li><a href="https://vault.sovereignwebsite.site/">Vault</a></li>
+    <li><a href="https://agenticcells.ai/">AgentiCCells</a></li>
+    <li><a href="https://riskmandate.ai/">RiskMandate</a></li>
+    <li><a href="https://newsroom.sgit.ai/">Newsroom</a></li>
+  </ul>
+</details>
+<header class="top">
+  <a class="name" href="/">GitHub in the browser (unofficial)</a>
+  <nav class="own" aria-label="This site">
+    <a href="/">The tool</a>
+    <a href="/security/">Token safety</a>
+    <a href="/designs/">Choose a design</a>
+    <a href="/start/">Start here</a>
+    <a href="/agents/">Use with your AI</a>
+  </nav>
+</header>
+<main id="main">
+<div class="mark">Token safety</div>
+<h1>Make a token that can do little</h1>
+<p>A token is a password for your GitHub account that you can limit. Anyone who gets it can do what it allows, until it expires or you delete it. Pasting it into a web page is a risk, including this one.</p>
+<h2>What to do</h2>
+<ol>
+<li>On GitHub, make a fine-grained personal access token (Settings, Developer settings, Personal access tokens).</li>
+<li>Choose <strong>Only select repositories</strong> and pick one repository.</li>
+<li>Give it read-only permissions: Contents read, Issues read, Pull requests read, Metadata read.</li>
+<li>Set a short expiry, such as a day or a week.</li>
+<li>Only for a task that needs it, make a second token with write permission (Contents write to edit files, Issues write to comment) for one repository, and delete it afterwards.</li>
+</ol>
+<h2>The risks, in plain words</h2>
+<ul>
+<li>If this page, or a script that ran on it, were changed to steal the token, the thief could use it as you. That is why the page loads no third-party scripts and may talk only to api.github.com. The page enforces this with a Content Security Policy.</li>
+<li>Anyone using your computer or a browser extension that can read pages could see the token while it is in memory.</li>
+<li>If you tick "keep it for this tab", the token sits in sessionStorage until the tab closes. Other scripts on this site's address could read it. There are none, but leave it unticked on a shared computer.</li>
+<li>A write token can change code and post comments in your name. This tool asks you to confirm before it does either.</li>
+<li>A classic token, or a fine-grained one with many repositories and permissions, can do far more harm if it leaks. Avoid them.</li>
+</ul>
+<h2>What this tool does with the token</h2>
+<ul>
+<li>Keeps it in the memory of the open tab, or in sessionStorage only if you ask.</li>
+<li>Sends it to https://api.github.com and nowhere else. The page's security policy blocks every other destination.</li>
+<li>Does not write it to local storage, cookies, web addresses or the console.</li>
+<li>Forgets it when you press Forget the token, or close the tab.</li>
+</ul>
+<p>Status: this tool is in review. Its token handling has been asked for a security review and has not passed it yet.</p>
+<footer>
+<nav class="site-links" aria-label="About this site">
+  <a href="/security/">Token safety</a>
+  <a href="/plan/signin/">Plan: sign in with GitHub</a>
+  <a href="/admin/">How this site was made</a>
+  <a href="/policy/">How this site is governed</a>
+</nav>
+An independent Sovereign Website tool. Not GitHub's site. Source: <a href="https://github.com/SovereignWebsite/Site__Tool__GitHub">github.com/SovereignWebsite/Site__Tool__GitHub</a>.
+</footer>
+</main>
+<script type="module" src="/assets/js/theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com; img-src 'self'; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Plan: sign in with GitHub (unofficial)</title>
+<meta name="description" content="A plan, not a feature: what signing in with GitHub would need, and why it waits for the owner.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GitHub in the browser (unofficial)">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://github.tool.sovereignweb.site/plan/signin/">
+<meta property="og:title" content="Plan: sign in with GitHub (unofficial)">
+<meta property="og:description" content="A plan, not a feature: what signing in with GitHub would need, and why it waits for the owner.">
+<meta property="og:image" content="https://github.tool.sovereignweb.site/assets/share/card-1200x630.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GitHub in the browser (unofficial)">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Plan: sign in with GitHub (unofficial)">
+<meta name="twitter:description" content="A plan, not a feature: what signing in with GitHub would need, and why it waits for the owner.">
+<meta name="twitter:image" content="https://github.tool.sovereignweb.site/assets/share/card-1200x630.jpg">
+<link rel="canonical" href="https://github.tool.sovereignweb.site/plan/signin/">
+<link rel="stylesheet" href="/assets/app.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<aside class="notice" aria-label="Notice">An independent Sovereign Website tool. Not GitHub's site. Status: in review, not yet cleared for real use.</aside>
+<details class="family-credit">
+  <summary>Sovereign Website</summary>
+  <ul>
+    <li><a href="/start/">Start here</a></li>
+    <li><a href="/agents/">Use with your AI</a></li>
+    <li class="family-gap"><a href="/admin/">How this site was made</a></li>
+    <li><a href="https://sovereignwebsite.ai/">Sovereign Website</a></li>
+    <li><a href="https://sovereignwebsite.org/">Principles</a></li>
+    <li><a href="https://sovereignwebsite.site/">Hosted</a></li>
+    <li><a href="https://hub.sovereignweb.site/">Hub</a></li>
+    <li><a href="https://agents.sovereignweb.site/">Agents</a></li>
+    <li><a href="https://vault.sovereignwebsite.site/">Vault</a></li>
+    <li><a href="https://agenticcells.ai/">AgentiCCells</a></li>
+    <li><a href="https://riskmandate.ai/">RiskMandate</a></li>
+    <li><a href="https://newsroom.sgit.ai/">Newsroom</a></li>
+  </ul>
+</details>
+<header class="top">
+  <a class="name" href="/">GitHub in the browser (unofficial)</a>
+  <nav class="own" aria-label="This site">
+    <a href="/">The tool</a>
+    <a href="/security/">Token safety</a>
+    <a href="/designs/">Choose a design</a>
+    <a href="/start/">Start here</a>
+    <a href="/agents/">Use with your AI</a>
+  </nav>
+</header>
+<main id="main">
+<div class="mark">Plan only. Nothing is built.</div>
+<h1>Sign in with GitHub: what it would need</h1>
+<p>Today you paste a token. Signing in with GitHub instead would be easier to use, but it needs two things that this static site cannot hold.</p>
+<h2>What it would need</h2>
+<ul>
+<li>A GitHub OAuth App registered on an account. It has a client secret.</li>
+<li>A small server that swaps the one-time code GitHub gives the browser for a token, using that secret. A static page cannot keep a secret, and GitHub's token endpoint does not allow browser requests.</li>
+</ul>
+<h2>Why it waits</h2>
+<ul>
+<li>It adds server code, which this site avoids by rule, and a secret to look after.</li>
+<li>OAuth tokens are broader than a fine-grained token scoped to one repository, so the risk grows.</li>
+<li>It is hard to undo once people rely on it. It is the owner's decision, so nothing is built until the owner says yes.</li>
+</ul>
+<h2>Not planned</h2>
+<p>A proxy for the git protocol. This tool reads and writes through GitHub's web API only.</p>
+<footer>
+<nav class="site-links" aria-label="About this site">
+  <a href="/security/">Token safety</a>
+  <a href="/plan/signin/">Plan: sign in with GitHub</a>
+  <a href="/admin/">How this site was made</a>
+  <a href="/policy/">How this site is governed</a>
+</nav>
+An independent Sovereign Website tool. Not GitHub's site. Source: <a href="https://github.com/SovereignWebsite/Site__Tool__GitHub">github.com/SovereignWebsite/Site__Tool__GitHub</a>.
+</footer>
+</main>
+<script type="module" src="/assets/js/theme.js"></script>
+</body>
+</html>
