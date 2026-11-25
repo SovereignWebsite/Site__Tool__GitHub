@@ -1,0 +1,20 @@
+/* "Choose a design": a compact strip at the top of every page while designs are open for a pick.
+   Self-contained so it works on pages that do not load app.css. Each preview is drawn in that design's own colours. */
+.picker{margin:0;padding:.4rem 1rem;border-bottom:1px solid #8888;background:#8881;font:14px/1.3 system-ui,-apple-system,Segoe UI,sans-serif;color:inherit;display:flex;flex-wrap:nowrap;align-items:center;gap:.7rem;overflow-x:auto}
+.picker strong{white-space:nowrap;font-size:.85rem}
+.picker a.pk{display:flex;flex-direction:column;align-items:center;gap:.15rem;text-decoration:none;color:inherit;flex:0 0 auto;padding:.15rem .25rem;border-radius:6px;border:2px solid transparent}
+.picker a.pk:hover,.picker a.pk:focus-visible{border-color:currentColor}
+.picker a.pk[aria-current=true]{border-color:#2f6b4f;font-weight:700}
+.picker .pl{font-size:.75rem;white-space:nowrap}
+.pv{display:grid;gap:.15rem;width:5rem;height:2.9rem;padding:.25rem;border:1px solid var(--pl);border-radius:var(--pr);background:var(--pb);overflow:hidden;align-content:start}
+.pv i{display:block;height:.26rem;background:var(--pa);border-radius:1px;opacity:.8}
+.pv i:nth-child(2n){width:70%;opacity:.45}
+.pv-paper{--pb:#fbfaf7;--pa:#2f6b4f;--pl:#cfcabb;--pr:5px}
+.pv-terminal{--pb:#0b0f0b;--pa:#5fe38a;--pl:#2a402c;--pr:0}
+.pv-ledger{--pb:#f6f7f9;--pa:#1f4fa3;--pl:#c3c9d3;--pr:2px;grid-template-columns:1fr 1fr}
+.pv-ledger i,.pv-ledger i:nth-child(2n){width:auto;opacity:.7;height:.22rem}
+.pv-cards{--pb:#fdf6ec;--pa:#a64b00;--pl:#ecd9bf;--pr:9px;grid-template-columns:1fr 1fr;gap:.2rem}
+.pv-cards i,.pv-cards i:nth-child(2n){width:auto;height:1rem;border-radius:4px;opacity:.35}
+.pv-twopane{--pb:#f3f6f6;--pa:#0b6b66;--pl:#b5c7c5;--pr:5px;grid-template-columns:1fr 1.6fr}
+.pv-twopane i{height:.22rem}.pv-twopane i.big{grid-column:2;grid-row:1/5;height:auto;min-height:1.9rem;opacity:.25}
+@media (prefers-color-scheme:dark){.pv-paper{--pb:#141513;--pa:#7fc3a0;--pl:#2c2d29}.pv-ledger{--pb:#0f1218;--pa:#8db3ff;--pl:#2a313d}.pv-cards{--pb:#1c1712;--pa:#ffb36b;--pl:#3b3025}.pv-twopane{--pb:#0d1514;--pa:#6fd6cf;--pl:#26403d}}

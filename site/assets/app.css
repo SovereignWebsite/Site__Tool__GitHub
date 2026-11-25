@@ -99,7 +99,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.95em}.tbl th,.tbl td{te
 [data-design="terminal"] input#filter{margin:.3rem 0 .6rem;max-width:22rem}
 @media (min-width:50rem){
  [data-design="twopane"] body.live main{max-width:none;padding:.5rem 1rem 1rem}
- [data-design="twopane"] body.live .split{height:calc(100vh - 8.5rem);min-height:20rem}
+ [data-design="twopane"] body.live .split{height:calc(100vh - 13.5rem);min-height:20rem}
  [data-design="twopane"] body.live .listpane,[data-design="twopane"] body.live .detailpane{overflow:auto;max-height:100%}
  [data-design="twopane"] body.live footer{display:none}
 }

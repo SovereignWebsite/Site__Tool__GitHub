@@ -18,5 +18,10 @@ function contrastButton() {
   b.addEventListener('click', () => { const on = document.documentElement.dataset.contrast === 'high'; if (on) { delete document.documentElement.dataset.contrast; put('contrast', null); } else { document.documentElement.dataset.contrast = 'high'; put('contrast', '1'); } sync(); });
   sync(); nav.append(b);
 }
+function markPicker() {
+  const cur = document.documentElement.dataset.design || 'paper';
+  document.querySelectorAll('.picker a.pk[href*="design="]').forEach((a) => { if (a.getAttribute('href').endsWith('design=' + cur)) a.setAttribute('aria-current', 'true'); });
+}
 applyDesign();
 contrastButton();
+markPicker();
