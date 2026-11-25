@@ -1,6 +1,6 @@
-import './theme.js';
-import * as tok from './token.js';
-import { api, enc, encPath, b64ToText, textToB64, setDemo, isDemo } from './github.js';
+import './theme.js?v=5667ac0a';
+import * as tok from './token.js?v=40275a7c';
+import { api, enc, encPath, b64ToText, textToB64, setDemo, isDemo } from './github.js?v=e7846b6c';
 
 // Do not run inside another page: a framing site could overlay this one to trick a paste or a click.
 if (window.top !== window.self) {

@@ -1,6 +1,6 @@
 // The only network code. Every request goes to https://api.github.com and nowhere else.
-import { bearer, has } from './token.js';
-import { demoApi } from './demo.js';
+import { bearer, has } from './token.js?v=40275a7c';
+import { demoApi } from './demo.js?v=a8c44152';
 let demo = false;
 export function setDemo(on) { demo = !!on; }
 export function isDemo() { return demo; }
