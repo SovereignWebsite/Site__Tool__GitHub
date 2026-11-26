@@ -1,4 +1,8 @@
-# Now (25 November 2026)
+# Now (26 November 2026)
+
+Handover: b.github-tool took over from github-tool.a on 26 November 2026 on Dinis's word (see agent.json). Note: restart.md still names cl-4 (account D); this keeper is b.github-tool on account B.
+
+Next job: step 5 of the owners' onboarding flow, with b.onboarding. Phase 1: this tool with a read-only token the owner pastes. Phase 2: sign in with GitHub, Dinis's one-way door, needing its own b.security review.
 
 GitHub in the browser (unofficial), https://github.tool.sovereignweb.site/. Status: **in review**. Phase 1 is built and pushed to `dev`. Nothing is mid-flight.
 

@@ -1,9 +1,8 @@
 {
-  "agent": "github-tool.a@SovereignWebsite.dinis",
-  "state": "handing over",
-  "moving_to": "cl-4.github-tool@SovereignWebsite.dinis (account D)",
-  "reason": "Account A is at 90% of its week (cl-1.maestro, confirmed by sites.a).",
-  "updated": "2026-11-25",
+  "agent": "b.github-tool@SovereignWebsite.dinis",
+  "state": "active",
+  "reason": "Dinis, 26 Nov 2026 18:20 UTC, in b.outreach's session: 'Yes account A is close to the limit, so can you continue here?' Recorded by b.decisions (Site__Agent__Decisions site/records/2026-11-26__website-and-github-tool-to-b.json, a11d1d3).",
+  "updated": "2026-11-26",
   "repository": "SovereignWebsite/Site__Tool__GitHub",
   "branch": "dev",
   "tool_status": "in review",
@@ -13,8 +12,13 @@
     "Dinis: the final design pick (recommendation: Two-pane with Ledger's tables)",
     "Dinis: how to handle the share card (the permission classifier refused the command that makes it)"
   ],
-  "signing_key": "site/keys/github-tool.a.json (a session key; the new session makes its own)",
+  "signing_key": "site/keys/b.github-tool.json (a session key; published in e893018)",
   "vault_and_lane_keys": "none held",
   "scheduled_wakes": "none",
-  "repositories_pushed_to": ["SovereignWebsite/Site__Tool__GitHub (dev only)"]
+  "repositories_pushed_to": [
+    "SovereignWebsite/Site__Tool__GitHub (dev only)"
+  ],
+  "taking_over_from": "github-tool.a@SovereignWebsite.dinis (account A, near its limit)",
+  "session": "https://claude.ai/code/session_01Kw9UwC59W4aRGQCQtPtxzz",
+  "maestro": "maestro.b"
 }
